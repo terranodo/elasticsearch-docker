@@ -20,15 +20,15 @@ WORKDIR /usr/src/downloads
 
 # building o19s elasticsearch feature/heatmap, only works with gradle 2.13
 RUN wget "https://services.gradle.org/distributions/gradle-2.13-all.zip" \
-	&& wget "https://github.com/o19s/elasticsearch/archive/feature/heatmap.zip" \
+	&& wget "https://github.com/sstults/elasticsearch/archive/master.zip" \
 	&& unzip "gradle-2.13-all.zip" \
-	&& unzip "heatmap.zip"
+	&& unzip "master.zip"
 
-WORKDIR /usr/src/downloads/elasticsearch-feature-heatmap
+WORKDIR /usr/src/downloads/elasticsearch-master
 RUN ../gradle-2.13/bin/gradle assemble
 
 RUN mkdir -p /opt/elasticsearch && \
-    tar zxvf distribution/tar/build/distributions/elasticsearch-5.0.0-alpha5-SNAPSHOT.tar.gz -C /opt/elasticsearch --strip-components=1
+    tar zxvf distribution/tar/build/distributions/elasticsearch-6.0.0-alpha1-SNAPSHOT.tar.gz -C /opt/elasticsearch --strip-components=1
 
 WORKDIR /opt/elasticsearch
 COPY config ./config
